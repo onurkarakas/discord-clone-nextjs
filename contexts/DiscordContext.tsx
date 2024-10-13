@@ -1,11 +1,16 @@
-'use client';
+"use client";
 
-import { DiscordServer } from '@/app/page';
-import { MemberRequest, StreamVideoClient } from '@stream-io/video-client';
-import { createContext, useCallback, useContext, useState } from 'react';
-import { Channel, ChannelFilters, StreamChat } from 'stream-chat';
-import { DefaultStreamChatGenerics } from 'stream-chat-react';
-import { v4 as uuid } from 'uuid';
+import { DiscordServer } from "@/app/page";
+import { MemberRequest, StreamVideoClient } from "@stream-io/video-client";
+import { createContext, useCallback, useContext, useState } from "react";
+import { Channel, ChannelFilters, StreamChat } from "stream-chat";
+import { DefaultStreamChatGenerics } from "stream-chat-react";
+import { v4 as uuid } from "uuid";
+
+type ChannelData = {
+  server?: string;
+  categor?: string;
+};
 
 type DiscordState = {
   server?: DiscordServer;
@@ -57,7 +62,7 @@ export const DiscordContextProvider: any = ({
   const changeServer = useCallback(
     async (server: DiscordServer | undefined, client: StreamChat) => {
       let filters: ChannelFilters = {
-        type: 'messaging',
+        type: "messaging",
         members: { $in: [client.userID as string] },
       };
       if (!server) {
@@ -65,7 +70,7 @@ export const DiscordContextProvider: any = ({
       }
 
       console.log(
-        '[DiscordContext - loadServerList] Querying channels for ',
+        "[DiscordContext - loadServerList] Querying channels for ",
         client.userID
       );
       const channels = await client.queryChannels(filters);
@@ -77,26 +82,32 @@ export const DiscordContextProvider: any = ({
         const categories = new Set(
           channels
             .filter((channel) => {
-              return channel.data?.data?.server === server.name;
+              const channelData = channel.data?.data as ChannelData; // Cast data to ChannelData type
+              return channelData?.server === server.name;
             })
             .map((channel) => {
-              return channel.data?.data?.category;
+              const channelData = channel.data?.data as ChannelData; // Cast data to ChannelData type
+              return channelData?.categor;
             })
         );
 
         for (const category of Array.from(categories)) {
-          channelsByCategories.set(
-            category,
-            channels.filter((channel) => {
-              return (
-                channel.data?.data?.server === server.name &&
-                channel.data?.data?.category === category
-              );
-            })
-          );
+          if (category !== undefined) {
+            // Ensure category is defined
+            channelsByCategories.set(
+              category,
+              channels.filter((channel) => {
+                const channelData = channel.data?.data as ChannelData; // Cast data to ChannelData type
+                return (
+                  channelData?.server === server.name &&
+                  channelData?.categor === category // This is safe now since category is defined
+                );
+              })
+            );
+          }
         }
       } else {
-        channelsByCategories.set('Direct Messages', channels);
+        channelsByCategories.set("Direct Messages", channels);
       }
       setMyState((myState) => {
         return { ...myState, server, channelsByCategories };
@@ -113,7 +124,7 @@ export const DiscordContextProvider: any = ({
       userIds: string[]
     ) => {
       const callId = uuid();
-      const audioCall = client.call('default', callId);
+      const audioCall = client.call("default", callId);
       const audioChannelMembers: MemberRequest[] = userIds.map((userId) => {
         return {
           user_id: userId,
@@ -148,24 +159,24 @@ export const DiscordContextProvider: any = ({
       imageUrl: string,
       userIds: string[]
     ) => {
-      const messagingChannel = client.channel('messaging', uuid(), {
-        name: 'Welcome',
+      const messagingChannel = client.channel("messaging", uuid(), {
+        name: "Welcome",
         members: userIds,
         data: {
           image: imageUrl,
           server: name,
-          category: 'Text Channels',
+          category: "Text Channels",
         },
       });
 
       try {
         const response = await messagingChannel.create();
-        console.log('[DiscordContext - createServer] Response: ', response);
+        console.log("[DiscordContext - createServer] Response: ", response);
         if (myState.server) {
           await createCall(
             videoClient,
             myState.server,
-            'General Voice Channel',
+            "General Voice Channel",
             userIds
           );
         }
@@ -185,7 +196,7 @@ export const DiscordContextProvider: any = ({
       userIds: string[]
     ) => {
       if (client.userID) {
-        const channel = client.channel('messaging', {
+        const channel = client.channel("messaging", {
           name: name,
           members: userIds,
           data: {

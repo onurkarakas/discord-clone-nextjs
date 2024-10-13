@@ -1,6 +1,6 @@
-import { StreamVideoClient } from '@stream-io/video-client';
-import { useEffect, useState } from 'react';
-import { UseClientOptions } from './useClient';
+import { StreamVideoClient } from "@stream-io/video-client";
+import { useEffect, useState } from "react";
+import { UseClientOptions } from "./useClient";
 
 export const useVideoClient = ({
   apiKey,
@@ -29,7 +29,7 @@ export const useVideoClient = ({
       videoConnectionPromise
         .then(() => streamVideoClient.disconnectUser())
         .then(() => {
-          console.log('video connection closed');
+          // console.log('video connection closed');
         });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- should re-run only if user.id changes

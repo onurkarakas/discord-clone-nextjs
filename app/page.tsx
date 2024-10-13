@@ -35,10 +35,10 @@ export default function Home() {
   const registerUser = useCallback(
     async function registerUser() {
       // register user on Stream backend
-      console.log("[registerUser] myUser:", myUser);
+      // console.log("[registerUser] myUser:", myUser);
       const userId = myUser?.id;
       const mail = myUser?.primaryEmailAddress?.emailAddress;
-      console.log(userId, mail);
+      // console.log(userId, mail);
       if (userId && mail) {
         const streamResponse = await fetch("/api/register-user", {
           method: "POST",
@@ -51,7 +51,7 @@ export default function Home() {
           }),
         });
         const responseBody = await streamResponse.json();
-        console.log("[registerUser] Stream response:", responseBody);
+        // console.log("[registerUser] Stream response:", responseBody);
         return responseBody;
       }
     },
@@ -64,9 +64,9 @@ export default function Home() {
       myUser?.primaryEmailAddress?.emailAddress &&
       !myUser?.publicMetadata.streamRegistered
     ) {
-      console.log("[Page - useEffect] Registering user on Stream backend");
+      // console.log("[Page - useEffect] Registering user on Stream backend");
       registerUser().then((result) => {
-        console.log("[Page - useEffect] Result: ", result);
+        // console.log("[Page - useEffect] Result: ", result);
         getUserToken(
           myUser.id,
           myUser?.primaryEmailAddress?.emailAddress || "Unknown"
@@ -75,11 +75,11 @@ export default function Home() {
     } else {
       // take user and get token
       if (myUser?.id) {
-        console.log(
-          "[Page - useEffect] User already registered on Stream backend: ",
-          myUser?.id,
-          myUser?.primaryEmailAddress?.emailAddress
-        );
+        // console.log(
+        //   "[Page - useEffect] User already registered on Stream backend: ",
+        //   myUser?.id,
+        //   myUser?.primaryEmailAddress?.emailAddress
+        // );
         getUserToken(
           myUser?.id || "Unknown",
           myUser?.primaryEmailAddress?.emailAddress || "Unknown"
@@ -104,7 +104,7 @@ export default function Home() {
         userId: userId,
       }),
     });
-    console.log(response);
+    // console.log(response);
     const responseBody = await response.json();
     const token = responseBody.token;
 

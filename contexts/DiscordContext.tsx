@@ -69,10 +69,10 @@ export const DiscordContextProvider: any = ({
         filters.member_count = 2;
       }
 
-      console.log(
-        "[DiscordContext - loadServerList] Querying channels for ",
-        client.userID
-      );
+      // console.log(
+      //   "[DiscordContext - loadServerList] Querying channels for ",
+      //   client.userID
+      // );
       const channels = await client.queryChannels(filters);
       const channelsByCategories = new Map<
         string,
@@ -141,11 +141,11 @@ export const DiscordContextProvider: any = ({
             members: audioChannelMembers,
           },
         });
-        console.log(
-          `[DiscordContext] Created Call with id: ${createdAudioCall.call.id}`
-        );
+        // console.log(
+        //   `[DiscordContext] Created Call with id: ${createdAudioCall.call.id}`
+        // );
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     },
     []
@@ -171,7 +171,7 @@ export const DiscordContextProvider: any = ({
 
       try {
         const response = await messagingChannel.create();
-        console.log("[DiscordContext - createServer] Response: ", response);
+        // console.log("[DiscordContext - createServer] Response: ", response);
         if (myState.server) {
           await createCall(
             videoClient,
@@ -207,7 +207,7 @@ export const DiscordContextProvider: any = ({
         try {
           const response = await channel.create();
         } catch (err) {
-          console.log(err);
+          // console.log(err);
         }
       }
     },

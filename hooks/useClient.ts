@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { StreamChat, TokenOrProvider, User } from 'stream-chat';
+import { useEffect, useState } from "react";
+import { StreamChat, TokenOrProvider, User } from "stream-chat";
 
 export type UseClientOptions = {
   apiKey: string;
@@ -34,7 +34,7 @@ export const useClient = ({
       connectionPromise
         .then(() => client.disconnectUser())
         .then(() => {
-          console.log('connection closed');
+          // console.log('connection closed');
         });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- should re-run only if user.id changes

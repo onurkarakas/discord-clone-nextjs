@@ -12,11 +12,11 @@ export async function POST(request: Request) {
   }
   const serverClient = StreamChat.getInstance(apiKey, secretKey);
   const body = await request.json();
-  console.log("[/api/register-user] Body:", body);
+  // console.log("[/api/register-user] Body:", body);
 
   const userId = body?.userId;
   const mail = body?.email;
-  console.log(userId, mail);
+  // console.log(userId, mail);
   if (!userId || !mail) {
     return Response.error();
   }
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     },
   };
   const updatedUser = await clerkClient.users.updateUser(userId, params);
-  console.log("[/api/register-user] User:", updatedUser);
+  // console.log("[/api/register-user] User:", updatedUser);
   const response = {
     userId: userId,
     userName: mail,

@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     process.env.STREAM_SECRET_KEY
   );
   const body = await request.json();
-  console.log("[/api/token] Body:", body);
+  // console.log("[/api/token] Body:", body);
 
   const userId = body?.userId;
 

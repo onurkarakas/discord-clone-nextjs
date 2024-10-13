@@ -151,7 +151,7 @@ const CreateServerForm = () => {
 
   function createClicked() {
     if (!videoClient) {
-      console.log("[CreateServerForm] Video client not available");
+      // console.log("[CreateServerForm] Video client not available");
       return;
     }
     createServer(

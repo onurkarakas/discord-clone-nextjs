@@ -2,7 +2,7 @@ import { StreamChat } from "stream-chat";
 
 export async function POST(request: Request) {
   const serverClient = StreamChat.getInstance(
-    "e82c8njn9xgd",
+    "mdkc5yvursf6",
     process.env.STREAM_SECRET_KEY
   );
   const body = await request.json();

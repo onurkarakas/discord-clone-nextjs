@@ -4,31 +4,40 @@ import { Gear, LeaveServer, Mic, Speaker } from "../Icons";
 import { useChatContext } from "stream-chat-react";
 import { useClerk } from "@clerk/nextjs";
 import ChannelListMenuRow from "../TopBar/ChannelListMenuRow";
-import { StreamCall } from "@stream-io/video-react-sdk"; // Ensure this is imported
-
-interface ChannelListBottomBarProps {
-  videoClient: any; // Adjust type according to your video client
-}
+import { useStreamVideoClient } from "@stream-io/video-react-sdk"; // Importing the hook for accessing video client
 
 export default function ChannelListBottomBar({
   videoClient,
-}: ChannelListBottomBarProps): JSX.Element {
+}: {
+  videoClient: any;
+}): JSX.Element {
+  // Accept videoClient as a prop
   const { client } = useChatContext();
-  const [micActive, setMicActive] = useState(false);
-  const [audioActive, setAudioActive] = useState(false);
+  const [micActive, setMicActive] = useState(true); // Set to true initially if you want the mic active by default
+  const [audioActive, setAudioActive] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+
   const { signOut } = useClerk();
 
   const toggleMic = () => {
-    if (videoClient && videoClient.call) {
-      const localParticipant = videoClient.call.localParticipant;
-
+    if (videoClient) {
       if (micActive) {
-        localParticipant.audio.disable(); // Mute the mic
+        videoClient?.localParticipant?.microphone.disable(); // Disable the microphone
       } else {
-        localParticipant.audio.enable(); // Unmute the mic
+        videoClient?.localParticipant?.microphone.enable(); // Enable the microphone
       }
-      setMicActive((prev) => !prev); // Update local state
+      setMicActive(!micActive); // Toggle state
+    }
+  };
+
+  const toggleAudio = () => {
+    if (videoClient) {
+      if (audioActive) {
+        videoClient?.localParticipant?.audio.disable(); // Disable audio
+      } else {
+        videoClient?.localParticipant?.audio.enable(); // Enable audio
+      }
+      setAudioActive(!audioActive); // Toggle state
     }
   };
 
@@ -64,7 +73,7 @@ export default function ChannelListBottomBar({
         className={`w-7 h-7 p-1 flex items-center justify-center relative rounded-lg hover:bg-gray-300 transition-all duration-100 ease-in-out ${
           !micActive ? "inactive-icon text-red-400" : "text-gray-700"
         }`}
-        onClick={toggleMic} // Call the toggleMic function here
+        onClick={toggleMic} // Call toggleMic on click
       >
         <Mic />
       </button>
@@ -72,7 +81,7 @@ export default function ChannelListBottomBar({
         className={`w-7 h-7 p-1 flex items-center justify-center relative rounded-lg hover:bg-gray-300 transition-all duration-100 ease-in-out ${
           !audioActive ? "inactive-icon text-red-400" : "text-gray-700"
         }`}
-        onClick={() => setAudioActive((currentValue) => !currentValue)}
+        onClick={toggleAudio} // Call toggleAudio on click
       >
         <Speaker />
       </button>

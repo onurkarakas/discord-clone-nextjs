@@ -8,7 +8,18 @@ interface WebhookRequestBody {
   };
 }
 
-const allowedEmails: string[] = ["onur9415@gmail.com"];
+const allowedEmails: string[] = [
+  "onur9415@gmail.com",
+  "talhaarslan3535@gmail.com",
+  "1345muratcan1345@gmail.com",
+  "alifidan024@gmail.com",
+  "abdulsamedkul7@gmail.com",
+  "murathanklc@gmail.com",
+  "lvntfdn@gmail.com",
+  "gkhnkadioglu@gmail.com",
+  "",
+  "",
+];
 
 export async function POST(req: Request) {
   try {

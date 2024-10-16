@@ -18,6 +18,6 @@ export async function GET() {
         lastOnline: user.last_active,
       };
     });
-
+  console.log(data);
   return Response.json({ data });
 }

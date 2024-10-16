@@ -1,5 +1,5 @@
-import { useClient } from '@/hooks/useClient';
-import { User } from 'stream-chat';
+import { useClient } from "@/hooks/useClient";
+import { User } from "stream-chat";
 import {
   Chat,
   Channel,
@@ -9,19 +9,20 @@ import {
   MessageInput,
   Thread,
   Window,
-} from 'stream-chat-react';
+} from "stream-chat-react";
 
-import CustomChannelList from '@/components/ChannelList/CustomChannelList';
-import ServerList from '@/components/ServerList/ServerList';
-import MessageComposer from '@/components/MessageList/MessageComposer/MessageComposer';
-import CustomDateSeparator from '@/components/MessageList/CustomDateSeparator/CustomDateSeparator';
-import CustomMessage from '@/components/MessageList/CustomMessage/CustomMessage';
-import { customReactionOptions } from '@/components/MessageList/CustomReactions/CustomReactionsSelector';
-import { useVideoClient } from '@/hooks/useVideoClient';
-import { StreamVideo } from '@stream-io/video-react-sdk';
-import { useDiscordContext } from '@/contexts/DiscordContext';
-import MyCall from '@/components/MyCall/MyCall';
-import CustomChannelHeader from './MessageList/CustomChannelHeader/CustomChannelHeader';
+import CustomChannelList from "@/components/ChannelList/CustomChannelList";
+import ServerList from "@/components/ServerList/ServerList";
+import MessageComposer from "@/components/MessageList/MessageComposer/MessageComposer";
+import CustomDateSeparator from "@/components/MessageList/CustomDateSeparator/CustomDateSeparator";
+import CustomMessage from "@/components/MessageList/CustomMessage/CustomMessage";
+import { customReactionOptions } from "@/components/MessageList/CustomReactions/CustomReactionsSelector";
+import { useVideoClient } from "@/hooks/useVideoClient";
+import { StreamVideo } from "@stream-io/video-react-sdk";
+import { useDiscordContext } from "@/contexts/DiscordContext";
+import MyCall from "@/components/MyCall/MyCall";
+import CustomChannelHeader from "./MessageList/CustomChannelHeader/CustomChannelHeader";
+import ChannelListBottomBar from "@/components/ChannelList/BottomBar/ChannelListBottomBar"; // Import the bottom bar component
 
 export default function MyChat({
   apiKey,
@@ -54,8 +55,8 @@ export default function MyChat({
 
   return (
     <StreamVideo client={videoClient}>
-      <Chat client={chatClient} theme='str-chat__theme-light'>
-        <section className='flex h-screen w-screen layout'>
+      <Chat client={chatClient} theme="str-chat__theme-light">
+        <section className="flex h-screen w-screen layout">
           <ServerList />
           <ChannelList List={CustomChannelList} sendChannelsToList={true} />
           {callId && <MyCall callId={callId} />}
@@ -74,6 +75,8 @@ export default function MyChat({
               <Thread />
             </Channel>
           )}
+          {/* Add the ChannelListBottomBar here and pass videoClient */}
+          <ChannelListBottomBar videoClient={videoClient} />
         </section>
       </Chat>
     </StreamVideo>

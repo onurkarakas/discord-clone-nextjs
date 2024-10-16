@@ -18,6 +18,7 @@ const allowedEmails: string[] = [
   "murathanklc@gmail.com",
   "lvntfdn@gmail.com",
   "gkhnkadioglu@gmail.com",
+  "ogzhn2123@gmail.com",
 ];
 export async function POST(req: Request) {
   try {

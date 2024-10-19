@@ -1,12 +1,12 @@
-import { useDiscordContext } from '@/contexts/DiscordContext';
-import { CallingState } from '@stream-io/video-client';
+import { useDiscordContext } from "@/contexts/DiscordContext";
+import { CallingState } from "@stream-io/video-client";
 import {
   useCallStateHooks,
   StreamTheme,
   SpeakerLayout,
   CallControls,
-} from '@stream-io/video-react-sdk';
-import '@stream-io/video-react-sdk/dist/css/styles.css';
+} from "@stream-io/video-react-sdk";
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 
 export default function CallLayout(): JSX.Element {
   const { setCall } = useDiscordContext();
@@ -21,7 +21,7 @@ export default function CallLayout(): JSX.Element {
   return (
     <StreamTheme>
       <h2>Participants: {participantCount}</h2>
-      <SpeakerLayout participantsBarPosition='bottom' />
+      <SpeakerLayout participantsBarPosition="bottom" />
       <CallControls
         onLeave={() => {
           setCall(undefined);

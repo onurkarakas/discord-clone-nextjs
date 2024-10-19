@@ -22,7 +22,6 @@ import { StreamVideo } from "@stream-io/video-react-sdk";
 import { useDiscordContext } from "@/contexts/DiscordContext";
 import MyCall from "@/components/MyCall/MyCall";
 import CustomChannelHeader from "./MessageList/CustomChannelHeader/CustomChannelHeader";
-import ChannelListBottomBar from "@/components/ChannelList/BottomBar/ChannelListBottomBar"; // Import the bottom bar component
 
 export default function MyChat({
   apiKey,
@@ -75,8 +74,6 @@ export default function MyChat({
               <Thread />
             </Channel>
           )}
-          {/* Add the ChannelListBottomBar here and pass videoClient */}
-          <ChannelListBottomBar videoClient={videoClient} />
         </section>
       </Chat>
     </StreamVideo>

@@ -172,14 +172,14 @@ export const DiscordContextProvider: any = ({
       try {
         const response = await messagingChannel.create();
         // console.log("[DiscordContext - createServer] Response: ", response);
-        if (myState.server) {
-          await createCall(
-            videoClient,
-            myState.server,
-            "General Voice Channel",
-            userIds
-          );
-        }
+        // if (myState.server) {
+        //   await createCall(
+        //     videoClient,
+        //     myState.server,
+        //     "General Voice Channel",
+        //     userIds
+        //   );
+        // }
         changeServer({ name, image: imageUrl }, client);
       } catch (err) {
         console.error(err);

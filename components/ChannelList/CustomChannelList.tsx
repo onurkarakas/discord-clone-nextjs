@@ -27,7 +27,7 @@ const CustomChannelList: React.FC<ChannelListMessengerProps> = () => {
       </div>
       <CallList />
       <CreateChannelForm />
-      <UserBar videoClient={StreamVideoClient} />
+      <UserBar />
     </div>
   );
 };

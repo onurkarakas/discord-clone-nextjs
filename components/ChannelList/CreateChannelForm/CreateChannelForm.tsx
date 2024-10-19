@@ -8,6 +8,7 @@ import Link from "next/link";
 import { CloseMark, Speaker } from "../Icons";
 import UserRow from "./UserRow";
 import { useStreamVideoClient } from "@stream-io/video-react-sdk";
+import fetchChannels from "./fetchChannels";
 
 type FormState = {
   channelType: "text" | "voice";
@@ -207,6 +208,8 @@ export default function CreateChannelForm(): JSX.Element {
           formData.category,
           formData.users.map((user) => user.id)
         );
+        fetchChannels();
+        break;
       case "voice":
         if (videoClient && server) {
           createCall(
@@ -215,7 +218,9 @@ export default function CreateChannelForm(): JSX.Element {
             formData.channelName,
             formData.users.map((user) => user.id)
           );
+          fetchChannels();
         }
+        break;
     }
     setFormData(initialState);
     router.replace("/");

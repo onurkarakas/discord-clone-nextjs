@@ -8,7 +8,7 @@ import Link from "next/link";
 import { CloseMark, Speaker } from "../Icons";
 import UserRow from "./UserRow";
 import { useStreamVideoClient } from "@stream-io/video-react-sdk";
-import fetchChannels from "./fetchChannels";
+import fetchChannels from "./FetchChannels";
 
 type FormState = {
   channelType: "text" | "voice";

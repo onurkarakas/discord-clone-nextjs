@@ -64,6 +64,7 @@ export const DiscordContextProvider: any = ({
       let filters: ChannelFilters = {
         type: "messaging",
         members: { $in: [client.userID as string] },
+        deleted_at: { $exists: false },
       };
       if (!server) {
         filters.member_count = 2;
